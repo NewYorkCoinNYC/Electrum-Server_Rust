@@ -91,29 +91,29 @@ impl ResolvAddr {
 
 /// This newtype implements `ParseArg` for `Network`.
 #[derive(Deserialize)]
-pub struct NewyorkcoinNetwork(Network);
+pub struct BitcoinNetwork(Network);
 
-impl Default for NewyorkcoinNetwork {
+impl Default for BitcoinNetwork {
     fn default() -> Self {
-        NewyorkcoinNetwork(Network::Newyorkcoin)
+        BitcoinNetwork(Network::Bitcoin)
     }
 }
 
-impl FromStr for NewyorkcoinNetwork {
+impl FromStr for BitcoinNetwork {
     type Err = <Network as FromStr>::Err;
 
     fn from_str(string: &str) -> std::result::Result<Self, Self::Err> {
-        Network::from_str(string).map(NewyorkcoinNetwork)
+        Network::from_str(string).map(BitcoinNetwork)
     }
 }
 
-impl ::configure_me::parse_arg::ParseArgFromStr for NewyorkcoinNetwork {
+impl ::configure_me::parse_arg::ParseArgFromStr for BitcoinNetwork {
     fn describe_type<W: fmt::Write>(mut writer: W) -> std::fmt::Result {
         write!(writer, "either 'newyorkcoin', 'testnet' or 'regtest'")
     }
 }
 
-impl Into<Network> for NewyorkcoinNetwork {
+impl Into<Network> for BitcoinNetwork {
     fn into(self) -> Network {
         self.0
     }
@@ -191,7 +191,7 @@ impl Config {
 
         let db_subdir = match config.network {
             // We must keep the name "mainnet" due to backwards compatibility
-            Network::Newyorkcoin => "mainnet",
+            Network::Bitcoin => "mainnet",
             Network::Testnet => "testnet",
             Network::Regtest => "regtest",
         };
@@ -199,17 +199,17 @@ impl Config {
         config.db_dir.push(db_subdir);
 
         let default_daemon_port = match config.network {
-            Network::Newyorkcoin => 18823,
+            Network::Bitcoin => 18823,
             Network::Testnet => 18332,
             Network::Regtest => 18443,
         };
         let default_electrum_port = match config.network {
-            Network::Newyorkcoin => 50001,
+            Network::Bitcoin => 50001,
             Network::Testnet => 60001,
             Network::Regtest => 60401,
         };
         let default_monitoring_port = match config.network {
-            Network::Newyorkcoin => 4224,
+            Network::Bitcoin => 4224,
             Network::Testnet => 14224,
             Network::Regtest => 24224,
         };
@@ -228,7 +228,7 @@ impl Config {
         );
 
         match config.network {
-            Network::Newyorkcoin => (),
+            Network::Bitcoin => (),
             Network::Testnet => config.daemon_dir.push("testnet3"),
             Network::Regtest => config.daemon_dir.push("regtest"),
         }

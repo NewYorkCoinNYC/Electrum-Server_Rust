@@ -50,9 +50,9 @@ doc = "JSONRPC authentication cookie file (default: ~/.newyorkc/.cookie)"
 
 [[param]]
 name = "network"
-type = "crate::config::NewyorkcoinNetwork"
-convert_into = "::Newyorkcoin::network::constants::Network"
-doc = "Select Newyorkcoin network type ('Newyorkcoin', 'testnet' or 'regtest')"
+type = "crate::config::BitcoinNetwork"
+convert_into = "::Bitcoin::network::constants::Network"
+doc = "Select Bitcoin network type ('Newyorkcoin', 'testnet' or 'regtest')"
 default = "Default::default()"
 
 [[param]]
