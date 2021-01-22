@@ -109,7 +109,7 @@ impl FromStr for BitcoinNetwork {
 
 impl ::configure_me::parse_arg::ParseArgFromStr for BitcoinNetwork {
     fn describe_type<W: fmt::Write>(mut writer: W) -> std::fmt::Result {
-        write!(writer, "either 'newyorkcoin', 'testnet', 'regtest' or 'signet'")
+        write!(writer, "either 'bitcoin', 'testnet', 'regtest' or 'signet'")
     }
 }
 
