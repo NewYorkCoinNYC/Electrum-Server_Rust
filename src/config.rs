@@ -1,4 +1,4 @@
-use newyorkcoin::network::constants::Network;
+use bitcoin::network::constants::Network;
 use dirs::home_dir;
 use std::convert::TryInto;
 use std::ffi::{OsStr, OsString};
@@ -147,7 +147,7 @@ fn default_daemon_dir() -> PathBuf {
         eprintln!("Error: unknown home directory");
         std::process::exit(1)
     });
-    home.push(".newyorkcoin");
+    home.push(".newyorkc");
     home
 }
 

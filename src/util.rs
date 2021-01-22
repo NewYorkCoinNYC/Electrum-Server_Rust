@@ -1,5 +1,5 @@
-use newyorkcoin::blockdata::block::BlockHeader;
-use newyorkcoin::hash_types::BlockHash;
+use bitcoin::blockdata::block::BlockHeader;
+use bitcoin::hash_types::BlockHash;
 use std::collections::HashMap;
 use std::convert::TryInto;
 use std::fmt;
@@ -282,9 +282,9 @@ where
 mod tests {
     #[test]
     fn test_headers() {
-        use newyorkcoin::blockdata::block::BlockHeader;
-        use newyorkcoin::hash_types::{BlockHash, TxMerkleNode};
-        use newyorkcoin::hashes::Hash;
+        use bitcoin::blockdata::block::BlockHeader;
+        use bitcoin::hash_types::{BlockHash, TxMerkleNode};
+        use bitcoin::hashes::Hash;
 
         use super::HeaderList;
 

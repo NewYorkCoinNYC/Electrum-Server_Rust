@@ -1,10 +1,10 @@
-use newyorkcoin::blockdata::block::{Block, BlockHeader};
-use newyorkcoin::blockdata::transaction::Transaction;
-use newyorkcoin::consensus::encode::{deserialize, serialize};
-use newyorkcoin::hash_types::{BlockHash, Txid};
-use newyorkcoin::network::constants::Network;
-use newyorkcoin::hashes::hex::{FromHex, ToHex};
-use newyorkcoin::hashes::Hash;
+use bitcoin::blockdata::block::{Block, BlockHeader};
+use bitcoin::blockdata::transaction::Transaction;
+use bitcoin::consensus::encode::{deserialize, serialize};
+use bitcoin::hash_types::{BlockHash, Txid};
+use bitcoin::network::constants::Network;
+use bitcoin::hashes::hex::{FromHex, ToHex};
+use bitcoin::hashes::Hash;
 use serde_json::{from_str, from_value, Map, Value};
 use std::collections::{HashMap, HashSet};
 use std::io::{BufRead, BufReader, Lines, Write};

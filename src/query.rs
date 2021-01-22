@@ -1,9 +1,9 @@
-use newyorkcoin::blockdata::transaction::Transaction;
-use newyorkcoin::consensus::encode::deserialize;
-use newyorkcoin::hash_types::{BlockHash, TxMerkleNode, Txid};
-use newyorkcoin::hashes::sha256d::Hash as Sha256dHash;
-use newyorkcoin::hashes::hex::ToHex;
-use newyorkcoin::hashes::Hash;
+use bitcoin::blockdata::transaction::Transaction;
+use bitcoin::consensus::encode::deserialize;
+use bitcoin::hash_types::{BlockHash, TxMerkleNode, Txid};
+use bitcoin::hashes::sha256d::Hash as Sha256dHash;
+use bitcoin::hashes::hex::ToHex;
+use bitcoin::hashes::Hash;
 use crypto::digest::Digest;
 use crypto::sha2::Sha256;
 use serde_json::Value;

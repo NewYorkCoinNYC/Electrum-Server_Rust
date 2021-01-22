@@ -1,7 +1,7 @@
-use newyorkcoin::blockdata::block::{Block, BlockHeader};
-use newyorkcoin::blockdata::transaction::{Transaction, TxIn, TxOut};
-use newyorkcoin::consensus::encode::{deserialize, serialize};
-use newyorkcoin::hash_types::{BlockHash, Txid};
+use bitcoin::blockdata::block::{Block, BlockHeader};
+use bitcoin::blockdata::transaction::{Transaction, TxIn, TxOut};
+use bitcoin::consensus::encode::{deserialize, serialize};
+use bitcoin::hash_types::{BlockHash, Txid};
 use crypto::digest::Digest;
 use crypto::sha2::Sha256;
 use std::collections::{HashMap, HashSet};

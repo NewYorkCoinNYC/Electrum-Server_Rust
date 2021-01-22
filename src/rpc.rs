@@ -1,7 +1,7 @@
-use newyorkcoin::blockdata::transaction::Transaction;
-use newyorkcoin::consensus::encode::{deserialize, serialize};
-use newyorkcoin::hashes::hex::{FromHex, ToHex};
-use newyorkcoin::hashes::{sha256d::Hash as Sha256dHash, Hash};
+use bitcoin::blockdata::transaction::Transaction;
+use bitcoin::consensus::encode::{deserialize, serialize};
+use bitcoin::hashes::hex::{FromHex, ToHex};
+use bitcoin::hashes::{sha256d::Hash as Sha256dHash, Hash};
 use error_chain::ChainedError;
 use serde_json::{from_str, Value};
 use std::collections::HashMap;
