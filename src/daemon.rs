@@ -316,14 +316,14 @@ impl Daemon {
                 cookie_getter,
                 signal.clone(),
             )?),
-            message_id: Counter::new(),
-            blocktxids_cache,
-            signal: signal.clone(),
-            latency: metrics.histogram_vec(
-                HistogramOpts::new("electrs_daemon_rpc", "NewYorkCoind RPC latency (in seconds)"),
-                &["method"],
-            ),
-            // TODO: use better buckets (e.g. 1 byte to 10MB).
+            // message_id: Counter::new(),
+            // blocktxids_cache,
+            // signal: signal.clone(),
+            // latency: metrics.histogram_vec(
+            //     HistogramOpts::new("electrs_daemon_rpc", "NewYorkCoind RPC latency (in seconds)"),
+            //     &["method"],
+            // ),
+            // // TODO: use better buckets (e.g. 1 byte to 10MB).
             size: metrics.histogram_vec(
                 HistogramOpts::new("electrs_daemon_bytes", "NewYorkCoind RPC size (in bytes)"),
                 &["method", "dir"],
