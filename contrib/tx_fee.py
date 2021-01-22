@@ -27,7 +27,7 @@ def main():
         print(f"{txid}:{i:<5} {-txo['value']:+20.8f}")
         fee -= txo['value']
 
-    print(f"Fee = {1e6 * fee:.2f} uBTC = {1e8 * fee / txn['vsize']:.2f} sat/vB")
+    print(f"Fee = {1e6 * fee:.2f} uNYC = {1e8 * fee / txn['vsize']:.2f} sat/vB")
 
 if __name__ == '__main__':
     main()
