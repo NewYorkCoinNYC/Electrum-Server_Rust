@@ -108,7 +108,26 @@ impl Connection {
         Ok(result)
     }
 
-    fn server_version(&self) -> Result<Value> {
+    fn server_version(&self, params: &[Value]) -> Result<Value> {
+        if params.len() != 2 {
+            bail!("invalid params: {:?}", params);
+        }
+        let client_id = params[0]
+            .as_str()
+            .chain_err(|| format!("invalid client_id: {:?}", params[0]))?;
+        // TODO: support (min, max) protocol version limits
+        let client_version = params[1]
+            .as_str()
+            .chain_err(|| format!("invalid client_version: {:?}", params[1]))?;
+
+        if client_version != PROTOCOL_VERSION {
+            bail!(
+                "{} requested protocol version {}, server supports {}",
+                client_id,
+                client_version,
+                PROTOCOL_VERSION
+            );
+        }
         Ok(json!([
             format!("electrs {}", ELECTRS_VERSION),
             PROTOCOL_VERSION
@@ -323,7 +342,9 @@ impl Connection {
             "blockchain.transaction.broadcast" => self.blockchain_transaction_broadcast(&params),
             "blockchain.transaction.get" => self.blockchain_transaction_get(&params),
             "blockchain.transaction.get_merkle" => self.blockchain_transaction_get_merkle(&params),
-            "blockchain.transaction.get_confirmed_blockhash" => self.blockchain_transaction_get_confirmed_blockhash(&params),
+            "blockchain.transaction.get_confirmed_blockhash" => {
+                self.blockchain_transaction_get_confirmed_blockhash(&params)
+            }
             "blockchain.transaction.id_from_pos" => {
                 self.blockchain_transaction_id_from_pos(&params)
             }
@@ -332,7 +353,7 @@ impl Connection {
             "server.donation_address" => self.server_donation_address(),
             "server.peers.subscribe" => self.server_peers_subscribe(),
             "server.ping" => Ok(Value::Null),
-            "server.version" => self.server_version(),
+            "server.version" => self.server_version(params),
             &_ => bail!("unknown method {} {:?}", method, params),
         };
         timer.observe_duration();

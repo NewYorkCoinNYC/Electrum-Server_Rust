@@ -2,9 +2,9 @@ use bitcoin::blockdata::block::{Block, BlockHeader};
 use bitcoin::blockdata::transaction::Transaction;
 use bitcoin::consensus::encode::{deserialize, serialize};
 use bitcoin::hash_types::{BlockHash, Txid};
-use bitcoin::network::constants::Network;
 use bitcoin::hashes::hex::{FromHex, ToHex};
 use bitcoin::hashes::Hash;
+use bitcoin::network::constants::Network;
 use serde_json::{from_str, from_value, Map, Value};
 use std::collections::{HashMap, HashSet};
 use std::io::{BufRead, BufReader, Lines, Write};
@@ -121,7 +121,7 @@ pub struct MempoolEntry {
 }
 
 impl MempoolEntry {
-    fn new(fee: u64, vsize: u32) -> MempoolEntry {
+    pub(crate) fn new(fee: u64, vsize: u32) -> MempoolEntry {
         MempoolEntry {
             fee,
             vsize,
@@ -320,20 +320,20 @@ impl Daemon {
             blocktxids_cache,
             signal: signal.clone(),
             latency: metrics.histogram_vec(
-                HistogramOpts::new("electrs_daemon_rpc", "Newyorkcoind RPC latency (in seconds)"),
+                HistogramOpts::new("electrs_daemon_rpc", "NewYorkCoind RPC latency (in seconds)"),
                 &["method"],
             ),
             // TODO: use better buckets (e.g. 1 byte to 10MB).
             size: metrics.histogram_vec(
-                HistogramOpts::new("electrs_daemon_bytes", "Newyorkcoind RPC size (in bytes)"),
+                HistogramOpts::new("electrs_daemon_bytes", "NewYorkCoind RPC size (in bytes)"),
                 &["method", "dir"],
             ),
         };
         let network_info = daemon.getnetworkinfo()?;
         info!("{:?}", network_info);
-        if network_info.version < 1_3_1_20 {
+        if network_info.version < 16_00_00 {
             bail!(
-                "{} is not supported - please use newyorkcoind 1.3.1.20",
+                "{} is not supported - please use newyorkcoind 0.16+",
                 network_info.subversion,
             )
         }

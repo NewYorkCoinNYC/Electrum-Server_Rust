@@ -1,5 +1,5 @@
 use bitcoin::network::constants::Network;
-use dirs::home_dir;
+use dirs_next::home_dir;
 use std::convert::TryInto;
 use std::ffi::{OsStr, OsString};
 use std::fmt;
@@ -109,7 +109,7 @@ impl FromStr for BitcoinNetwork {
 
 impl ::configure_me::parse_arg::ParseArgFromStr for BitcoinNetwork {
     fn describe_type<W: fmt::Write>(mut writer: W) -> std::fmt::Result {
-        write!(writer, "either 'newyorkcoin', 'testnet' or 'regtest'")
+        write!(writer, "either 'newyorkcoin', 'testnet', 'regtest' or 'signet'")
     }
 }
 
@@ -176,7 +176,7 @@ impl Config {
     pub fn from_args() -> Config {
         use internal::ResultExt;
 
-        let system_config: &OsStr = "/etc/electrs/config.toml".as_ref();
+        let system_config: &OsStr = "/etc/Electrum-Server_Rust/config.toml".as_ref();
         let home_config = home_dir().map(|mut dir| {
             dir.extend(&[".electrs", "config.toml"]);
             dir
@@ -194,6 +194,7 @@ impl Config {
             Network::Bitcoin => "mainnet",
             Network::Testnet => "testnet",
             Network::Regtest => "regtest",
+            Network::Signet => "signet",
         };
 
         config.db_dir.push(db_subdir);
@@ -202,16 +203,19 @@ impl Config {
             Network::Bitcoin => 18823,
             Network::Testnet => 18332,
             Network::Regtest => 18443,
+            Network::Signet => 18554,
         };
         let default_electrum_port = match config.network {
             Network::Bitcoin => 50001,
             Network::Testnet => 60001,
             Network::Regtest => 60401,
+            Network::Signet => 60601,
         };
         let default_monitoring_port = match config.network {
             Network::Bitcoin => 4224,
             Network::Testnet => 14224,
             Network::Regtest => 24224,
+            Network::Signet => 34224,
         };
 
         let daemon_rpc_addr: SocketAddr = config.daemon_rpc_addr.map_or(
@@ -231,6 +235,7 @@ impl Config {
             Network::Bitcoin => (),
             Network::Testnet => config.daemon_dir.push("testnet3"),
             Network::Regtest => config.daemon_dir.push("regtest"),
+            Network::Signet => config.daemon_dir.push("signet"),
         }
 
         let daemon_dir = &config.daemon_dir;

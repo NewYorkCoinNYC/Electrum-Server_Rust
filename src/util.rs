@@ -11,7 +11,7 @@ use std::thread;
 pub type Bytes = Vec<u8>;
 pub type HeaderMap = HashMap<BlockHash, BlockHeader>;
 
-// TODO: consolidate serialization/deserialize code for bincode/newyorkcoin.
+// TODO: consolidate serialization/deserialize code for bincode/bitcoin.
 const HASH_LEN: usize = 32;
 pub const HASH_PREFIX_LEN: usize = 8;
 
