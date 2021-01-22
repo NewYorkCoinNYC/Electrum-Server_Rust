@@ -34,7 +34,7 @@ If you installed `cfg_me` to generate man page, you can run `cfg_me man` to see 
 ```bash
 $ docker build -t electrs-app .
 $ docker run --network host \
-             --volume $HOME/.bitcoin:/home/user/.bitcoin:ro \
+             --volume $HOME/.bitcoin:/root/Electrum-Server_Rust/.bitcoin:ro \
              --volume $PWD:/home/user \
              --rm -i -t electrs-app \
              electrs -vvvv --timestamp --db-dir /home/user/db
@@ -243,8 +243,8 @@ Description=Electrs
 After=bitcoind.service
 
 [Service]
-WorkingDirectory=/home/bitcoin/electrs
-ExecStart=/home/bitcoin/electrs/target/release/electrs --db-dir ./db --electrum-rpc-addr="127.0.0.1:50001"
+WorkingDirectory=/root/Electrum-Server_Rust
+ExecStart=/root/Electrum-Server_Rust/target/release/electrs --db-dir ./db --electrum-rpc-addr="127.0.0.1:50001"
 User=bitcoin
 Group=bitcoin
 Type=simple
